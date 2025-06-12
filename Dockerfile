@@ -1,4 +1,7 @@
 FROM caddy:latest
+ARG UPGRADE_FLAG
+
+ENV UPGRADE=${UPGRADE_FLAG}
 
 WORKDIR /app
 
