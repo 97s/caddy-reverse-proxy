@@ -26,20 +26,14 @@
 
 :{$PORT} {
 	log {
-		format json
+		level DEBUG
+		output stdout
+		format console
 	}
 
-	reverse_proxy {
-		dynamic a {
-			name {$TARGET_DOMAIN} 
-			port {$TARGET_PORT}  
-			refresh 1s
-			dial_timeout 30s
-			versions ipv4 ipv6
+	handle /* {
+		reverse_proxy {$TARGET_DOMAIN}:{$TARGET_PORT} {
+			header_up Host {$TARGET_DOMAIN}
 		}
-
-		import lb_settings
-		import passive_health_checks
-		header_up Host {upstream_hostport}
 	}
 }
