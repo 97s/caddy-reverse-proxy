@@ -1,6 +1,7 @@
 {
 	admin off
 	persist_config off
+	debug
 	auto_https off
 	log {
 		format json
