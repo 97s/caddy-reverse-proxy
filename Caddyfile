@@ -26,9 +26,7 @@
 
 :{$PORT} {
 	log {
-		level DEBUG
-		output stdout
-		format console
+		format json
 	}
 
 	handle /* {
