@@ -1,7 +1,6 @@
 {
-	admin 127.0.0.1:2019
+	admin off
 	persist_config off
-	debug
 	auto_https off
 	log {
 		format json
