@@ -1,37 +1,25 @@
 {
-	admin off
-	persist_config off
-	auto_https off
-	log {
-		format json
-	}
-	servers {
-		trusted_proxies static private_ranges
-	}
-}
-
-(lb_settings) {
-	lb_policy round_robin
-	lb_retries 100
-	lb_try_duration 10s
-	lb_try_interval 250ms
-}
-
-(passive_health_checks) {
-	fail_duration 60s
-	max_fails 300
-	unhealthy_latency 5s
-	unhealthy_request_count 200
+    admin off
+    persist_config off
+    auto_https off
+    log {
+        format json
+    }
+    servers {
+        trusted_proxies static private_ranges
+    }
 }
 
 :{$PORT} {
-	log {
-		format json
-	}
+    log {
+        format json
+    }
 
-	handle /* {
-		reverse_proxy {$TARGET_DOMAIN}:{$TARGET_PORT} {
-			header_up Host {$TARGET_DOMAIN}
-		}
-	}
+    handle /* {
+        reverse_proxy {$TARGET_DOMAIN}:{$TARGET_PORT} {
+            header_up Host {$TARGET_DOMAIN}
+            header_up X-Forwarded-For {http.request.remote.host}
+            header_up X-Real-IP {http.request.remote.host}
+        }
+    }
 }
